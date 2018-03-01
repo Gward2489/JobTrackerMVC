@@ -19,6 +19,16 @@ namespace JobTracker.Models.AccountViewModels
         [Display(Name = "Password")]
         public string Password { get; set; }
 
+        [Required]
+        [Display(Name = "First Name")]
+        [StringLength(55, ErrorMessage = "Please enter your nickname")]
+        public string FirstName { get; set; }
+
+        [Required]
+        [Display(Name = "Last Name")]
+        [StringLength(55, ErrorMessage = "Sorry, too long")]
+        public string LastName { get; set; }
+
         [DataType(DataType.Password)]
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]

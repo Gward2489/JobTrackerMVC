@@ -1,9 +1,21 @@
-﻿@{
+﻿@using Microsoft.AspNetCore.Identity
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div>
 
-    <h2>What is happening Player?</h2>
-
-</div>
+@if (SignInManager.IsSignedIn(User))
+{
+    <div>
+       <h2>LOOKE 4 SUM JOBZ SLAKUR! </h2>
+    </div>
+} 
+@if (User == null)  {
+     <div>
+            <h2>HAI, LOEG IN TO ADD SUM JOBZ LOLZ</h2>
+      </div>
+}
