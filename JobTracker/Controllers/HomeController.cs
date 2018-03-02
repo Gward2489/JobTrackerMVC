@@ -5,14 +5,39 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using JobTracker.Models;
+using JobTracker.Models.JobViewModels;
+using JobTracker.Data;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace JobTracker.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+
+        private readonly ApplicationDbContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
+
+        public HomeController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
-            return View();
+            _userManager = userManager;
+            _context = context;
+        }
+
+        private Task<ApplicationUser> GetCurrentUserAsync() => _userManager.GetUserAsync(HttpContext.User);
+
+        public async Task<IActionResult> Index()
+        {
+
+            ApplicationUser user = await GetCurrentUserAsync();
+            JobDisplayViewModel model = new JobDisplayViewModel(_context);
+
+            model.Jobs = _context.JobModel
+                        .Include("CompanyModel")
+                        .Include("ContactModel")
+                        .Where(j => j.User == user).ToList();
+
+            return View(model);
         }
 
         public IActionResult About()

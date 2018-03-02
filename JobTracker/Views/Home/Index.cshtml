@@ -1,4 +1,5 @@
 ﻿@using Microsoft.AspNetCore.Identity
+@Model  JobTracker.Models.JobViewModels.JobDisplayViewModel
 
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
@@ -13,6 +14,14 @@
     <div>
        <h2>LOOKE 4 SUM JOBZ SLAKUR! </h2>
     </div>
+
+    @foreach (JobModel j in Model.Jobs)
+    {
+        <div>
+            <h2>j.JobTitle</h2>
+
+        </div>
+    }
 }
 else
 {
