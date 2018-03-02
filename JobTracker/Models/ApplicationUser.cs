@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 
@@ -21,5 +22,6 @@ namespace JobTracker.Models
         public string LastName { get; set; }
 
         public virtual ICollection<JobModel> Jobs { get; set; }
+
     }
 }
