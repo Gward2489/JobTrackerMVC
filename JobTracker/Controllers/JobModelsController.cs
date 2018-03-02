@@ -69,21 +69,17 @@ namespace JobTracker.Controllers
         public async Task<IActionResult> Create([Bind("Id,JobTitle,Language,CompanyId,AppStatusId,ContactId,Notes")] JobModel jobModel)
         {
 
-
-            if (ModelState.ContainsKey("User"))
-            {
-
-                ModelState["User"].Errors.Clear();
+            ModelState.Remove("User");
 
                 if (ModelState.IsValid)
                 {
+                ApplicationUser user = await GetCurrentUserAsync();
+                jobModel.User = user;
                     _context.Add(jobModel);
                     await _context.SaveChangesAsync();
                     return RedirectToAction(nameof(Index));
                 }
-            }
-
-
+                
             ViewData["AppStatusId"] = new SelectList(_context.AppStatusModel, "Id", "AppStatusTitle", jobModel.AppStatusId);
             ViewData["CompanyId"] = new SelectList(_context.CompanyModel, "Id", "WebsiteUrl", jobModel.CompanyId);
             ViewData["ContactId"] = new SelectList(_context.ContactModel, "Id", "Email", jobModel.ContactId);
