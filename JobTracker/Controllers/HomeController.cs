@@ -33,11 +33,13 @@ namespace JobTracker.Controllers
             JobDisplayViewModel model = new JobDisplayViewModel(_context);
 
             model.Jobs = _context.JobModel
-                        .Include("CompanyModel")
-                        .Include("ContactModel")
+                        .Include("Company")
+                        .Include("Contact")
+                        .Include("AppStatus")
                         .Where(j => j.User == user).ToList();
 
             return View(model);
+
         }
 
         public IActionResult About()

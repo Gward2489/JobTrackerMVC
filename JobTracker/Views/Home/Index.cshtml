@@ -17,10 +17,22 @@
 
     @foreach (JobModel j in Model.Jobs)
     {
+    <div>
+        <h1>GIT THAT JOEB:: </h1>
+        <h2>Naem of Joeb:  @Html.DisplayFor(modelItem => j.JobTitle)</h2>
+        <h4>Code typez::  @Html.DisplayFor(modelItem => j.Language)</h4>
+        <h4>Peeps Hiring  @Html.DisplayFor(modelItem => j.Company.WebsiteUrl)</h4>
+        <p>HOWS it GOIN? @Html.DisplayFor(modelItem => j.AppStatus.AppStatusTitle)</p>
+        @if (j.ContactId != 0)
+    {
+        <p>U said u kno this person : @Html.DisplayFor(modelItem => j.Contact.Name)</p>
+}
+        <p>noats: @Html.DisplayFor(modelItem => j.Notes)</p>
         <div>
-            <h2>j.JobTitle</h2>
-
+              @Html.DropDownList("AppStatuses")
         </div>
+        <button type="submit" class="btn btn-link navbar-btn navbar-link">Log out</button>
+    </div>
     }
 }
 else
