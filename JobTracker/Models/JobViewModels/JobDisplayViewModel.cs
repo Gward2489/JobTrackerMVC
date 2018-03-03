@@ -13,7 +13,8 @@ namespace JobTracker.Models.JobViewModels
 
         public List<JobModel> Jobs { get; set; }
 
-        [Required]
+        public List<SelectListItem> Contacts {get; set;}
+
         public List<SelectListItem> AppStatuses { get; set; }
 
         public JobDisplayViewModel (ApplicationDbContext ctx)
@@ -29,7 +30,22 @@ namespace JobTracker.Models.JobViewModels
 
             this.AppStatuses.Insert(0, new SelectListItem
             {
-                Text = "Choose category...",
+                Text = "Choose Status...",
+                Value = "0"
+            });
+
+            this.Contacts = ctx.ContactModel
+                .OrderBy(I => I.Name)
+                .AsEnumerable()
+                .Select(li => new SelectListItem
+                {
+                    Text = li.Name,
+                    Value = li.Id.ToString()
+                }).ToList();
+
+            this.Contacts.Insert(0, new SelectListItem
+            {
+                Text = "Choose Contact...",
                 Value = "0"
             });
         }

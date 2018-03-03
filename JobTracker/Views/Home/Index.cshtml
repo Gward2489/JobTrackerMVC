@@ -1,5 +1,4 @@
 ﻿@using Microsoft.AspNetCore.Identity
-@Model  JobTracker.Models.JobViewModels.JobDisplayViewModel
 
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
@@ -8,30 +7,41 @@
     ViewData["Title"] = "Home Page";
 }
 
-
 @if (SignInManager.IsSignedIn(User))
 {
     <div>
-       <h2>LOOKE 4 SUM JOBZ SLAKUR! </h2>
+       <h2>Look For Jobs !</h2>
     </div>
 
     @foreach (JobModel j in Model.Jobs)
+
     {
     <div>
-        <h1>GIT THAT JOEB:: </h1>
-        <h2>Naem of Joeb:  @Html.DisplayFor(modelItem => j.JobTitle)</h2>
-        <h4>Code typez::  @Html.DisplayFor(modelItem => j.Language)</h4>
-        <h4>Peeps Hiring  @Html.DisplayFor(modelItem => j.Company.WebsiteUrl)</h4>
-        <p>HOWS it GOIN? @Html.DisplayFor(modelItem => j.AppStatus.AppStatusTitle)</p>
+        <h1>JOB</h1>
+        <h2>JOB NAME:  @Html.DisplayFor(modelItem => j.JobTitle)</h2>
+        <h4>LANGUAGE:  @Html.DisplayFor(modelItem => j.Language)</h4>
+        <h4>COMPANY:  @Html.DisplayFor(modelItem => j.Company.WebsiteUrl)</h4>
+        <p>STATUS: @Html.DisplayFor(modelItem => j.AppStatus.AppStatusTitle)</p>
         @if (j.ContactId != 0)
-    {
-        <p>U said u kno this person : @Html.DisplayFor(modelItem => j.Contact.Name)</p>
-}
-        <p>noats: @Html.DisplayFor(modelItem => j.Notes)</p>
-        <div>
-              @Html.DropDownList("AppStatuses")
-        </div>
-        <button type="submit" class="btn btn-link navbar-btn navbar-link">Log out</button>
+         {
+        <p>CONTACT:  @Html.DisplayFor(modelItem => j.Contact.Name)</p>
+         }
+        <p>Notes: @Html.DisplayFor(modelItem => j.Notes)</p>
+          <div>
+              <h3>Update Status/Change Contact</h3>
+              <div>
+                      <div>
+                          @Html.DropDownList("AppStatuses")
+                      </div>
+                  <button type="submit" class="btn btn-link navbar-btn navbar-link">Change Status</button>
+              </div>
+              <div>
+                  <div>
+                      @Html.DropDownList("Contacts")
+                  </div>
+                  <button type="submit" class="btn btn-link navbar-btn navbar-link">Add Contact</button>
+              </div>
+          </div>
     </div>
     }
 }
